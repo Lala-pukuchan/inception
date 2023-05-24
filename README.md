@@ -32,6 +32,13 @@ systemctl start docker
 sudo apt install docker-compose
 export DOCKER_HOST=localhost
 ```
+## using docker without sudo
+```
+sudo groupadd docker
+sudo gpasswd -a $USER docker
+sudo systemctl restart docker
+exit
+```
 
 ## docker image
 [sample Dockerfile for nginx](https://github.com/nginxinc/docker-nginx/blob/73a5acae6945b75b433cafd0c9318e4378e72cbb/mainline/debian/Dockerfile)
