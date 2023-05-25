@@ -48,7 +48,7 @@ sudo apt-get -y install make
 ```
 
 ## docker image
-[sample Dockerfile for nginx](https://github.com/nginxinc/docker-nginx/blob/73a5acae6945b75b433cafd0c9318e4378e72cbb/mainline/debian/Dockerfile)
+[sample Dockerfile for nginx](https://github.com/nginxinc/docker-nginx/blob/1a8d87b69760693a8e33cd8a9e0c2e5f0e8b0e3c/stable/alpine-slim/Dockerfile)
 [nginx daemon off](https://tottoto-toto.hatenablog.com/)
 
 ## docker-compose
@@ -67,5 +67,65 @@ Common Name (e.g. server FQDN or YOUR name) []:rukobaya.42.fr
 ## how to connect to rukobaya.42.fr from local server
 ```
 sudo vi /etc/hosts
+127.0.0.1	localhost rukobaya.42.fr
+```
 
+## PHP fpm
+[what is php fpm](https://hackers-high.com/linux/php-fpm-config/)
+[php fpm official image](https://github.com/docker-library/php/blob/21967e6cd5f1240093d4f0b03d579397571cab9c/8.0/alpine3.16/fpm/Dockerfile)
+[what should be installed for php extension](https://qiita.com/dalchan/items/20e758fe8646e7c58df8)
+[ref](https://53ningen.com/docker-wordpress)
+```
+FROM alpine:3.16
+PHP_VERSION 8.0.28
+```
+```
+FROM alpine:3.16
+
+RUN set -x && \
+	apk update && \
+	apk add php8 php8-fpm php8-ftp php8-mbstring php8-mysqlnd
+```
+
+## word press
+[word press official image](https://github.com/docker-library/wordpress/blob/6fa05d9ba94e7cb48a53ff90878cc6fc777f7986/latest/php8.0/fpm-alpine/Dockerfile)
+
+```
+FROM php:8.0-fpm-alpine
+```
+
+## docker network
+[how to create bridge network](https://knowledge.sakura.ad.jp/26522/)
+```
+version: "3"
+services:
+  web:
+    image: alpine
+    command: ping 127.0.0.1
+    networks:
+      - frontend
+  middle:
+    image: alpine
+    command: ping 127.0.0.1
+    networks:
+      - frontend
+      - backend
+  db:
+    image: alpine
+    command: ping 127.0.0.1
+    networks:
+      - backend
+networks:
+  frontend:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 192.168.10.0/24
+  backend:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 192.168.20.0/24
 ```

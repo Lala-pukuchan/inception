@@ -1,8 +1,8 @@
-FROM debian:bullseye-slim
+FROM alpine:3.13
 
-RUN set -x \
-	&& apt-get update \
-	&& apt-get install nginx
+RUN apk update \
+    && apk add --no-cache nginx \
+    && mkdir -p /run/nginx
 
 EXPOSE 443
 
