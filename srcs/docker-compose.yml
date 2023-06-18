@@ -3,7 +3,7 @@ services:
   mysql:
     image: mariadb
     volumes:
-      - ${local_data_mariadb}:/var/lib/mysql
+      - /Users/kobayashi/Desktop/data/mysql:/var/lib/mysql #same as wordpress vol
     environment:
       MYSQL_ROOT_PASSWORD: ${mysql_root_pass}
       MYSQL_DATABASE: ${db_name}
@@ -13,7 +13,7 @@ services:
   wordpress:
     image: wordpress:php7.3-fpm-alpine
     volumes:
-      - ${local_data_wordpress}:/var/www/html
+      - /Users/kobayashi/Desktop/data/mysql:/var/www/html #same as mariadb vol
     depends_on:
       - mysql
     environment:
@@ -26,14 +26,15 @@ services:
     restart: always
   nginx:
     image: nginx:customized
-    build: ./nginx
+    build: ./requirements/nginx
     container_name: rev
     ports:
       - "443:443"
     volumes:
-      - ./nginx/conf/default.conf:/etc/nginx/conf.d/default.conf
-      - ./nginx/conf/ssl:/etc/nginx/ssl
-      - ${local_data_wordpress}:/var/www/html
+      - ./requirements/nginx/conf/default.conf:/etc/nginx/conf.d/default.conf
+      - /Users/kobayashi/Desktop/data/wordpress:/var/www/html
+    depends_on:
+      - wordpress
     restart: always
 networks:
   default:

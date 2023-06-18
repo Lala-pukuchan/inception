@@ -67,6 +67,14 @@ sudo apt-get -y install make
 ```
 sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout ./nginx/conf/ssl/private_key.pem -out ./nginx/conf/ssl/certificate.pem
 Common Name (e.g. server FQDN or YOUR name) []:rukobaya.42.fr
+RUN echo "Creating self-signed certificate for domain rukobaya.42.fr" && \
+    openssl \
+    req -x509 \
+    -nodes \
+    -subj "/CN=rukobaya.42.fr" \
+    -days 365 \
+    -newkey rsa:2048 -keyout /etc/nginx/ssl/private_key.pem \
+    -out /etc/nginx/ssl/certificate.pem
 ```
 
 ## how to connect to rukobaya.42.fr from local server
@@ -94,10 +102,7 @@ RUN set -x && \
 
 ## word press
 [word press official image](https://github.com/docker-library/wordpress/blob/6fa05d9ba94e7cb48a53ff90878cc6fc777f7986/latest/php8.0/fpm-alpine/Dockerfile)
-
-```
-FROM php:8.0-fpm-alpine
-```
+- To check admin console, "wp-admin/" after url.
 
 ## docker network
 [how to create bridge network](https://knowledge.sakura.ad.jp/26522/)
