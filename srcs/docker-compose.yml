@@ -9,30 +9,30 @@ services:
     volumes:
       - ./nginx/conf/default.conf:/etc/nginx/conf.d/default.conf
       - ./nginx/conf/ssl:/etc/nginx/ssl
-      #- ./nginx/html:/usr/share/nginx/html:ro
-      - ./wordpress/src /usr/share/nginx/html
+      - ./nginx/html:/usr/share/nginx/html:ro
+      #- ./wordpress/src:/usr/share/nginx/html
     restart: always
     networks:
       - frontend
-  php-fpm:
-    image: php-fpm:customized
-    build: ./wordpress
-    container_name: php-fpm
-    ports:
-      - 9000:9000
-    networks:
-      - frontend
-    volumes:
-      - ./wordpress/conf/php.ini /usr/local/etc/php/conf.d/php.ini
-      #- ./wordpress/src /usr/share/nginx/html
-  #wordpress:
-  #  image: wordpress:customized
+  #php-fpm:
+  #  image: php-fpm:customized
   #  build: ./wordpress
-  #  container_name: web
+  #  container_name: php-fpm
   #  ports:
-  #    - "9000:9000"
-    #volumes:
-    #  - ./wordpress/conf/www.conf:/etc/opt/remi/php73/php-fpm.d/www.conf
+  #    - 9000:9000
+  #  networks:
+  #    - frontend
+  #  volumes:
+  #    - ./wordpress/conf/php.ini:/usr/local/etc/php/conf.d/php.ini
+  #    #- ./wordpress/src /usr/share/nginx/html
+  ##wordpress:
+  ##  image: wordpress:customized
+  ##  build: ./wordpress
+  ##  container_name: web
+  ##  ports:
+  ##    - "9000:9000"
+  #  #volumes:
+  #  #  - ./wordpress/conf/www.conf:/etc/opt/remi/php73/php-fpm.d/www.conf
 networks:
   frontend:
     driver: bridge
