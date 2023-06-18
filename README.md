@@ -1,5 +1,10 @@
 # inception
 
+# local
+## local dns server
+- [how to set up dns](https://blog.turai.work/entry/20190206/1549452268)
+
+# vm
 ## ssh
 ```
 ssh -p 22 debian@127.0.0.1
@@ -128,4 +133,28 @@ networks:
       driver: default
       config:
         - subnet: 192.168.20.0/24
+```
+
+## mariadb
+### connect to mariadb
+#### connect to mariadb from mariadb container
+```
+docker exec -it <mariadb container id> /bin/bash
+apt-get update
+apt-get install mysql-client -y
+mysql -u ruru -p
+mysql> SHOW DATABASES;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| wordpress_db       |
++--------------------+
+```
+#### connect to mariadb from wordpress container
+```
+docker exec -it <wordpress container id> /bin/bash
+apk update && apk add --no-cache mysql-client
+mysql -h mysql -u ruru -p
+
 ```
