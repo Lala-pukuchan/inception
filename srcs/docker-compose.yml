@@ -1,41 +1,43 @@
 version: '3'
 services:
   mysql:
-    image: mariadb
+    image: mariadb:customized
+    build: ./requirements/mariadb
     volumes:
-      - /Users/kobayashi/Desktop/data/mysql:/var/lib/mysql #same as wordpress vol
+      - /Users/kobayashi/data/mysql:/var/lib/mysql #same as wordpress vol
+      - ./requirements/mariadb/tools/run.sh:/tools/run.sh
     environment:
-      MYSQL_ROOT_PASSWORD: ${mysql_root_pass}
-      MYSQL_DATABASE: ${db_name}
-      MYSQL_USER: ${user_name}
-      MYSQL_PASSWORD: ${user_pass}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASS}
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${USER_NAME}
+      MYSQL_PASSWORD: ${USER_PASS}
     restart: always
-  wordpress:
-    image: wordpress:php7.3-fpm-alpine
-    volumes:
-      - /Users/kobayashi/Desktop/data/mysql:/var/www/html #same as mariadb vol
-    depends_on:
-      - mysql
-    environment:
-      WORDPRESS_DB_HOST: mysql
-      MYSQL_ROOT_PASSWORD: ${mysql_root_pass}
-      WORDPRESS_DB_NAME: ${db_name}
-      WORDPRESS_DB_USER: ${user_name}
-      WORDPRESS_DB_PASSWORD: ${user_pass}
-      WORDPRESS_TABLE_PREFIX: wp_
-    restart: always
-  nginx:
-    image: nginx:customized
-    build: ./requirements/nginx
-    container_name: rev
-    ports:
-      - "443:443"
-    volumes:
-      - ./requirements/nginx/conf/default.conf:/etc/nginx/conf.d/default.conf
-      - /Users/kobayashi/Desktop/data/wordpress:/var/www/html
-    depends_on:
-      - wordpress
-    restart: always
+  #wordpress:
+  #  image: wordpress:php7.3-fpm-alpine
+  #  volumes:
+  #    - /Users/kobayashi/data/mysql:/var/www/html #same as mariadb vol
+  #  depends_on:
+  #    - mysql
+  #  environment:
+  #    WORDPRESS_DB_HOST: mysql
+  #    MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASS}
+  #    WORDPRESS_DB_NAME: ${DB_NAME}
+  #    WORDPRESS_DB_USER: ${USER_NAME}
+  #    WORDPRESS_DB_PASSWORD: ${USER_PASS}
+  #    WORDPRESS_TABLE_PREFIX: wp_
+  #  restart: always
+  #nginx:
+  #  image: nginx:customized
+  #  build: ./requirements/nginx
+  #  container_name: rev
+  #  ports:
+  #    - "443:443"
+  #  volumes:
+  #    - ./requirements/nginx/conf/default.conf:/etc/nginx/conf.d/default.conf
+  #    - /Users/kobayashi/data/wordpress:/var/www/html
+  #  depends_on:
+  #    - wordpress
+  #  restart: always
 networks:
   default:
     driver: bridge

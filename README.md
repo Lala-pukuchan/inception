@@ -163,3 +163,7 @@ apk update && apk add --no-cache mysql-client
 mysql -h mysql -u ruru -p
 
 ```
+
+### Dockerfile for mariadb
+- [Dockerfile based on alphine](https://github.com/yobasystems/alpine-mariadb/blob/master/alpine-mariadb-aarch64/files/run.sh)
+

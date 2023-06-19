@@ -1,10 +1,10 @@
+# base os
 FROM alpine:3.13
 
 # install
 RUN echo "Install package for nginx" \
     && apk update \
-    && apk add --no-cache nginx \
-    && apk add --no-cache openssl
+    && apk add --no-cache nginx openssl
 
 # create dir
 RUN echo "Create dir" \
@@ -22,7 +22,6 @@ RUN echo "Create self-signed certificate for domain rukobaya.42.fr" \
         -out /etc/nginx/ssl/cert.pem
 
 # port
-RUN echo "expose 443 port"
 EXPOSE 443
 
 # cmd
