@@ -1,5 +1,5 @@
 # base os
-FROM alpine:3.18.0
+FROM alpine:3.13
 
 # install
 RUN echo "Install package for mariadb" \
@@ -7,7 +7,7 @@ RUN echo "Install package for mariadb" \
     && apk add --no-cache mariadb mariadb-client
 
 # port
-EXPOSE 3306
+#EXPOSE 3306
 
 # entrypoint
-ENTRYPOINT ["sh", "/tools/run.sh"]
+ENTRYPOINT ["sh", "/tools/configure.sh"]
