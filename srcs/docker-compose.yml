@@ -13,11 +13,11 @@ services:
       MYSQL_PASSWORD: ${USER_PASS}
     restart: always
   wordpress:
-    #image: wordpress:php8.0-fpm-alpine #ok
-    image: wordpress:racoon
+    image: wordpress:customized
     build: ./requirements/wordpress
     volumes:
       - ${MOUNT_DIR}/html:/var/www/html # same location with nginx vol
+      - ./requirements/mariadb/conf:/conf
     depends_on:
       - mysql
     environment:
@@ -26,7 +26,12 @@ services:
       WORDPRESS_DB_NAME: ${DB_NAME}
       WORDPRESS_DB_USER: ${USER_NAME}
       WORDPRESS_DB_PASSWORD: ${USER_PASS}
-      WORDPRESS_TABLE_PREFIX: wp_
+      WORDPRESS_ADMIN: ${WP_ADMIN_NAME}
+      WORDPRESS_ADMIN_PASSWORD: ${WP_ADMIN_PASS}
+      WORDPRESS_ADMIN_EMAIL: ${WP_ADMIN_EMAIL}
+      WORDPRESS_USER: ${WP_USER_NAME}
+      WORDPRESS_USER_PASSWORD: ${WP_USER_PASS}
+      WORDPRESS_USER_EMAIL: ${WP_USER_EMAIL}
     restart: always
   nginx:
     image: nginx:customized
