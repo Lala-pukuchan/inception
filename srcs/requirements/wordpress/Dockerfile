@@ -19,15 +19,13 @@ COPY /conf/php-fpm.conf /etc/php7/php-fpm.conf
 # conf for php-fpm pool
 COPY /conf/www.conf /etc/php7/php-fpm.d/www.conf
 
-# static website (TO DO: delete)
-COPY conf/index.html /tmp/index.html
-
 # install wordpress
-RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
-RUN chmod +x wp-cli.phar
-RUN cp wp-cli.phar /usr/bin/wp
+RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && \
+    chmod +x wp-cli.phar && mv wp-cli.phar /usr/bin/wp
 
+# workdir
 WORKDIR /var/www/html/wordpress
 
+# execute shell
 COPY tools/configure.sh /tmp/configure.sh
 ENTRYPOINT [ "sh", "/tmp/configure.sh" ]
