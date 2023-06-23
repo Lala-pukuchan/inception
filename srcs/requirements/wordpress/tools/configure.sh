@@ -14,7 +14,7 @@ if ! wp core is-installed; then
 
     echo "[i] installing wordpress...."
     echo "[i] create admin user: $WORDPRESS_ADMIN, admin pass: $WORDPRESS_ADMIN_PASSWORD, admin email: $WORDPRESS_ADMIN_EMAIL"
-    wp core install --url=localhost/wordpress --title=Inception --admin_user=$WORDPRESS_ADMIN --admin_password=$WORDPRESS_ADMIN_PASSWORD --admin_email=$WORDPRESS_ADMIN_EMAIL --skip-email --allow-root
+    wp core install --url=$SERVER_NAME/wordpress --title=Inception --admin_user=$WORDPRESS_ADMIN --admin_password=$WORDPRESS_ADMIN_PASSWORD --admin_email=$WORDPRESS_ADMIN_EMAIL --skip-email --allow-root
     
     echo "[i] create author user: $WORDPRESS_USER, user pass: $WORDPRESS_USER_PASSWORD, user email: $WORDPRESS_USER_EMAIL"
     wp user create $WORDPRESS_USER $WORDPRESS_USER_EMAIL --role=author --user_pass=$WORDPRESS_USER_PASSWORD --allow-root

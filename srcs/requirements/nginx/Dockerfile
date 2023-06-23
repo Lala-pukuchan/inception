@@ -12,11 +12,11 @@ RUN echo "Create dir" \
     && mkdir -p /etc/nginx/ssl
 
 # ssl
-RUN echo "Create self-signed certificate for domain rukobaya.42.fr" \
+RUN echo "Create self-signed certificate for domain ${SERVER_NAME}" \
     && openssl \
         req -x509 \
         -nodes \
-        -subj "/CN=rukobaya.42.fr" \
+        -subj "/CN=${SERVER_NAME}" \
         -days 365 \
         -newkey rsa:2048 -keyout /etc/nginx/ssl/private.key \
         -out /etc/nginx/ssl/cert.pem
