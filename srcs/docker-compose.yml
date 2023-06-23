@@ -4,7 +4,7 @@ services:
     image: mariadb:customized
     build: ./requirements/mariadb
     volumes:
-      - /data19/mysql:/var/lib/mysql
+      - /data19/mysql:/var/lib/mysql # (TO DO: change mount point)
       - ./requirements/mariadb/tools:/tools
     env_file:
       - ./.env

@@ -13,7 +13,7 @@ RUN apk add --no-cache bash curl less vim tzdata zip mariadb-client \
 # add user for nginx process
 RUN	adduser -S nginx &&	addgroup -S nginx
 
-# conf for global setting of process mgt (TO DO: check conf)
+# conf for global setting of process mgt
 COPY /conf/php-fpm.conf /etc/php7/php-fpm.conf
 
 # conf for php-fpm pool
