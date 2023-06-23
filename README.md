@@ -104,6 +104,7 @@ RUN set -x && \
 [word press official image](https://github.com/docker-library/wordpress/blob/6fa05d9ba94e7cb48a53ff90878cc6fc777f7986/latest/php8.0/fpm-alpine/Dockerfile)
 - To check admin console, "wp-admin/" after url.
 - for site, wordpress/index.php
+- [conf](https://www.php.net/manual/en/install.fpm.configuration.php)
 
 ### Dockerfile for 
 - [Dockerfile based on alphine](https://github.com/yobasystems/alpine-php-wordpress/blob/master/alpine-php-wordpress-aarch64/Dockerfile)
