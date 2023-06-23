@@ -1,10 +1,10 @@
 version: '3'
 services:
-  mysql:
+  mariadb:
     image: mariadb:customized
     build: ./requirements/mariadb
     volumes:
-      - /data19/mysql:/var/lib/mysql # (TO DO: change mount point)
+      - /data20/mysql:/var/lib/mysql # (TO DO: change mount point)
       - ./requirements/mariadb/tools:/tools
     env_file:
       - ./.env
@@ -13,10 +13,10 @@ services:
     image: wordpress:customized
     build: ./requirements/wordpress
     volumes:
-      - /data19/html:/var/www/html # same location with nginx vol
+      - /data20/html:/var/www/html # same location with nginx vol
       - ./requirements/mariadb/conf:/conf
     depends_on:
-      - mysql
+      - mariadb
     env_file:
       - ./.env
     restart: always
@@ -28,7 +28,7 @@ services:
       - "443:443"
     volumes:
       - ./requirements/nginx/conf/default.conf:/etc/nginx/conf.d/default.conf
-      - /data19/html:/var/www/html # same location with wordpress vol
+      - /data20/html:/var/www/html # same location with wordpress vol
     depends_on:
       - wordpress
     env_file:
