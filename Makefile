@@ -1,6 +1,6 @@
 all: up
 up:
-	docker compose -f srcs/docker-compose.yml up --build
+	docker compose -f srcs/docker-compose.yml up
 up-d:
 	docker compose -f srcs/docker-compose.yml up -d
 down:
