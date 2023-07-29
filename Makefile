@@ -1,5 +1,7 @@
 all: up
 up:
+	mkdir -p ~/data/inception/html
+	mkdir -p ~/data/inception/mysql
 	docker compose -f srcs/docker-compose.yml up
 up-d:
 	docker compose -f srcs/docker-compose.yml up -d
